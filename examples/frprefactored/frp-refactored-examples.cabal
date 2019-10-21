@@ -10,7 +10,7 @@ cabal-version:       >=1.10
 library
   exposed-modules:     FRPrefactoredSec3,
                        FRPrefactoredSec4
-  build-depends:       base >=4.9 && <4.10,
+  build-depends:       base >=4.9,
                        transformers,
                        transformers-base,
                        dunai

@@ -8,21 +8,17 @@ module FRPrefactoredSec3
 
 import Control.Arrow                           (arr, second, (&&&), (>>>))
 import Control.Monad.Base                      (MonadBase)
-import Data.MonadicStreamFunction.Core         (liftBaseM)
+import Data.MonadicStreamFunction.Core
 import Data.MonadicStreamFunction.InternalCore (MSF (..), embed)
 import Data.MonadicStreamFunction.Util         (count)
 
-
--- In dunai-core it is called liftS, in dunai it is called liftBaseM.
-liftS :: (Monad m2, MonadBase m1 m2) => (a -> m1 b) -> MSF m2 a b
-liftS = liftBaseM
 
 add :: (Num n, Monad m) => n -> MSF m n n
 add n0 = arr (\n -> n + n0)
 
 testSerial :: MSF IO () ()
-testSerial = liftS (\() -> getLine)
-             >>> (arr id &&& arr reverse) >>> liftS print
+testSerial = arrM (\() -> getLine)
+             >>> (arr id &&& arr reverse) >>> arrM print
 
 type Game = Ball
 type Ball = Int
